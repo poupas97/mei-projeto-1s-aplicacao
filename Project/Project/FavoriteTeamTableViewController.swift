@@ -50,5 +50,14 @@ class FavoriteTeamTableViewController: UITableViewController {
 
         }
     }
+    
+    
+    //https://stackoverflow.com/questions/26207846/pass-data-through-segue
+    
+    func gotToScreen(){
+        performSegue(withIdentifier: "Ecra")
+        let tvc = TeamViewController()
+        tvc.
+    }
 
 }
