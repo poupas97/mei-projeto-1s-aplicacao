@@ -10,7 +10,7 @@ import UIKit
 
 class LeagueTableViewController: UITableViewController {
 
-    var leagues: [League] = [League(name: "honra"), League(name: "serie a")];
+    var leagues: [League] = [League(id: 1, name: "honra"), League(id: 2, name: "serie a")];
     let identifier = "LeagueIdentifier";
     
     override func viewDidLoad() {

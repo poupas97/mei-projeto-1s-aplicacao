@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C1B8BA42388635A00986769 /* TeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B8BA32388635A00986769 /* TeamViewController.swift */; };
 		2C801932237DDAF300F83B95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C801931237DDAF300F83B95 /* AppDelegate.swift */; };
 		2C801934237DDAF300F83B95 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C801933237DDAF300F83B95 /* SceneDelegate.swift */; };
 		2C801936237DDAF300F83B95 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C801935237DDAF300F83B95 /* ViewController.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C1B8BA32388635A00986769 /* TeamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamViewController.swift; sourceTree = "<group>"; };
 		2C80192E237DDAF300F83B95 /* Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C801931237DDAF300F83B95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C801933237DDAF300F83B95 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,12 +120,13 @@
 				2C80193A237DDAF300F83B95 /* Assets.xcassets */,
 				2C80193C237DDAF300F83B95 /* LaunchScreen.storyboard */,
 				2C80193F237DDAF300F83B95 /* Info.plist */,
-				2CD685A52386026B007F6417 /* FavoriteTeamTableViewController.swift */,
 				2CD685A7238602A9007F6417 /* FavoriteTeamTableViewCell.swift */,
-				2CD685A923860482007F6417 /* Team.swift */,
+				2CD685A52386026B007F6417 /* FavoriteTeamTableViewController.swift */,
 				2CD685AD23860D45007F6417 /* League.swift */,
 				2CD685AF23860D7D007F6417 /* LeagueTableViewCell.swift */,
 				2CD685B123860DE6007F6417 /* LeagueTableViewController.swift */,
+				2CD685A923860482007F6417 /* Team.swift */,
+				2C1B8BA32388635A00986769 /* TeamViewController.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				2C801932237DDAF300F83B95 /* AppDelegate.swift in Sources */,
 				2CD685A62386026B007F6417 /* FavoriteTeamTableViewController.swift in Sources */,
 				2C801934237DDAF300F83B95 /* SceneDelegate.swift in Sources */,
+				2C1B8BA42388635A00986769 /* TeamViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
