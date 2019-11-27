@@ -53,6 +53,4 @@ class FavoriteTeamTableViewController: UITableViewController {
         info?.idTeam = self.idToSend;
     }
 
-
-
 }
