@@ -12,11 +12,16 @@ import UIKit
 
 class FavoriteTeamTableViewController: UITableViewController {
 
-    var favoriteTeams: [Team] = [Team(name: "alq"), Team(name: "pdm")];
+    var favoriteTeams: [Team] = [Team(id: 1, name: "alq"), Team(id: 2, name: "pdm")];
     let identifier = "FavoriteTeamIdentifier";
+    var idToSend: Int = 0;
+    
+    @IBOutlet var favTeams: UITableView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        favTeams.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,30 +39,18 @@ class FavoriteTeamTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as! FavoriteTeamTableViewCell;
         cell.labelOutlet.text = favoriteTeams[indexPath.row].name;
-        
-        /* let tapGesture = UITapGestureRecognizer(target: self, action: Selector(("imageTapped:")));
-        cell.imageOutlet.addGestureRecognizer(tapGesture)
-        cell.imageOutlet.isUserInteractionEnabled = true */
-        
         return cell;
     }
-
-    func imageTapped(gesture: UIGestureRecognizer) {
-        // if the tapped view is a UIImageView then set it to imageview
-        if (gesture.view as? UIImageView) != nil {
-            print("Image Tapped")
-            //Here you can initiate your new ViewController
-
-        }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        idToSend = favoriteTeams[indexPath.row].id;
+        performSegue(withIdentifier: "goToTeamView", sender: idToSend);
     }
     
-    
-    //https://stackoverflow.com/questions/26207846/pass-data-through-segue
-    
-    func gotToScreen(){
-        performSegue(withIdentifier: "Ecra")
-        let tvc = TeamViewController()
-        tvc.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let info = segue.destination as? TeamViewController;
+        print(info);
+        info?.idTeam = self.idToSend;
     }
 
 }

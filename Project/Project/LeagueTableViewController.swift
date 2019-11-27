@@ -10,11 +10,18 @@ import UIKit
 
 class LeagueTableViewController: UITableViewController {
 
-    var leagues: [League] = [League(name: "honra"), League(name: "serie a")];
+    @IBOutlet var leagueTableView: UITableView!
+    
+    var leagues: [League] = [League(id: 1, name: "honra"), League(id: 2, name: "serie a")];
     let identifier = "LeagueIdentifier";
+    var idToSend: Int = 0;
+    var idReceived: Int = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        leagueTableView.delegate = self
+        
+        print(idReceived)
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,5 +40,16 @@ class LeagueTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as! LeagueTableViewCell;
         cell.labelOutlet.text = leagues[indexPath.row].name;
         return cell;
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        idToSend = leagues[indexPath.row].id;
+        performSegue(withIdentifier: "goToClassification", sender: idToSend);
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let info = segue.destination as? ClassificationTableViewController;
+        print(info);
+        info?.idLeague = self.idToSend;
     }
 }
