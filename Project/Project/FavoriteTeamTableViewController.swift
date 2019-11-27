@@ -43,13 +43,13 @@ class FavoriteTeamTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("didSelectedRowat", favoriteTeams[indexPath.row].id);
         idToSend = favoriteTeams[indexPath.row].id;
-        performSegue(withIdentifier: "goToTeamView", sender: favoriteTeams[indexPath.row].id);
+        performSegue(withIdentifier: "goToTeamView", sender: idToSend);
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let info = segue.destination as? TeamViewController;
+        print(info);
         info?.idTeam = self.idToSend;
     }
 
