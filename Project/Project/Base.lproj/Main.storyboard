@@ -24,7 +24,7 @@
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <state key="normal" title="Football Leagues"/>
                                 <connections>
-                                    <segue destination="Sjv-b9-Ao3" kind="show" id="Bq5-jR-B5l"/>
+                                    <action selector="footballAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LD9-iR-s8X"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2u5-cm-ZX8">
@@ -36,7 +36,7 @@
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <state key="normal" title="Futsal Leagues"/>
                                 <connections>
-                                    <segue destination="Sjv-b9-Ao3" kind="show" id="PV1-IL-waQ"/>
+                                    <action selector="ftusalAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="a8W-3Z-PpT"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sportscourt" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="KDJ-P0-wS0">
@@ -91,6 +91,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="dyF-kX-NgQ"/>
+                    <connections>
+                        <segue destination="Sjv-b9-Ao3" kind="show" identifier="segueFootball" id="9Fb-aI-jFL"/>
+                        <segue destination="Sjv-b9-Ao3" kind="show" identifier="segueFutsal" id="5kB-eY-sKy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -527,6 +531,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="hgY-Tf-0y8"/>
-        <segue reference="Bq5-jR-B5l"/>
+        <segue reference="5kB-eY-sKy"/>
     </inferredMetricsTieBreakers>
 </document>

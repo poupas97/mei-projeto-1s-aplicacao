@@ -15,10 +15,13 @@ class LeagueTableViewController: UITableViewController {
     var leagues: [League] = [League(id: 1, name: "honra"), League(id: 2, name: "serie a")];
     let identifier = "LeagueIdentifier";
     var idToSend: Int = 0;
+    var idReceived: Int = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
         leagueTableView.delegate = self
+        
+        print(idReceived)
     }
 
     override func didReceiveMemoryWarning() {
