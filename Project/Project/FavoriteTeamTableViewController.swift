@@ -57,8 +57,7 @@ class FavoriteTeamTableViewController: UITableViewController {
     }
     
     public func removeFavoritTeam(teamReceived: Team) {
-        let index = find(teamReceived, favoriteTeams);
-        print(index);
+        favoriteTeams = favoriteTeams.filter({$0 !== teamReceived});
     }
     
     // MARK: - Navigation
@@ -72,6 +71,7 @@ class FavoriteTeamTableViewController: UITableViewController {
         let info = segue.destination as? TeamViewController;
         print(info);
         info?.idTeamReceived = self.idToSend;
+        info?.isFavotiteTeam = true;
     }
 
 }

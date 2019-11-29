@@ -52,19 +52,21 @@ class TeamViewController: UIViewController {
         getIconFavotire();
     }
     
-    private func getIconFavotire() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: isFavotiteTeam ? "star.fill" : "star"), style: .plain, target: self, action: "setTeamFavorite:")
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning();
     }
     
+    // MARK: - Actions
+    
     @IBAction func setTeamFavorite(_ sender: Any) {
+        isFavotiteTeam ? FavoriteTeamTableViewController().removeFavoritTeam(teamReceived: team) : FavoriteTeamTableViewController().addFavoritTeam(teamReceived: team);
+        
         isFavotiteTeam = !isFavotiteTeam
         getIconFavotire();
-        
-        FavoriteTeamTableViewController().addFavoritTeam(teamReceived: team);
+    }
+    
+    private func getIconFavotire() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: isFavotiteTeam ? "star.fill" : "star"), style: .plain, target: self, action: "setTeamFavorite:")
     }
     
 }
