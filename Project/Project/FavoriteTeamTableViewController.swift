@@ -17,7 +17,7 @@ class FavoriteTeamTableViewController: UITableViewController {
     @IBOutlet var favTeams: UITableView!
     
     let identifier = "FavoriteTeamIdentifier";
-    var idToSend: Int = 0;
+    var idTeamToSend: Int = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,14 +63,14 @@ class FavoriteTeamTableViewController: UITableViewController {
     // MARK: - Navigation
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        idToSend = favoriteTeams[indexPath.row].id;
-        performSegue(withIdentifier: "goToTeamView", sender: idToSend);
+        idTeamToSend = favoriteTeams[indexPath.row].id;
+        performSegue(withIdentifier: "goToTeamView", sender: idTeamToSend);
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let info = segue.destination as? TeamViewController;
         print(info);
-        info?.idTeamReceived = self.idToSend;
+        info?.idTeamReceived = self.idTeamToSend;
         info?.isFavotiteTeam = true;
     }
 

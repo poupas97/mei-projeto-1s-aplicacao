@@ -54,6 +54,6 @@ class LeagueTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let info = segue.destination as? ClassificationTableViewController;
         print(info);
-        info?.idLeague = self.idToSend;
+        info?.idLeagueReceived = self.idToSend;
     }
 }
