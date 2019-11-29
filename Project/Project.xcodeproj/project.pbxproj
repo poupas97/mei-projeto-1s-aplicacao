@@ -117,11 +117,11 @@
 			children = (
 				2C801931237DDAF300F83B95 /* AppDelegate.swift */,
 				2C801933237DDAF300F83B95 /* SceneDelegate.swift */,
-				2C80193C237DDAF300F83B95 /* LaunchScreen.storyboard */,
 				2C80193F237DDAF300F83B95 /* Info.plist */,
+				2C80193C237DDAF300F83B95 /* LaunchScreen.storyboard */,
 				2C80193A237DDAF300F83B95 /* Assets.xcassets */,
 				2C801937237DDAF300F83B95 /* Main.storyboard */,
-				2C801935237DDAF300F83B95 /* ViewController.swift */,
+				2CC82C7E238F113900A08BDF /* ClassificationTableViewController.swift */,
 				2CD685A7238602A9007F6417 /* FavoriteTeamTableViewCell.swift */,
 				2CD685A52386026B007F6417 /* FavoriteTeamTableViewController.swift */,
 				2CD685AD23860D45007F6417 /* League.swift */,
@@ -129,7 +129,7 @@
 				2CD685B123860DE6007F6417 /* LeagueTableViewController.swift */,
 				2CD685A923860482007F6417 /* Team.swift */,
 				2C1B8BA32388635A00986769 /* TeamViewController.swift */,
-				2CC82C7E238F113900A08BDF /* ClassificationTableViewController.swift */,
+				2C801935237DDAF300F83B95 /* ViewController.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";

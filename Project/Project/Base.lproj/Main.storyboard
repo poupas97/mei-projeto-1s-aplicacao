@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ot9-bx-ojQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ot9-bx-ojQ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -40,7 +40,7 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sportscourt" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="KDJ-P0-wS0">
-                                <rect key="frame" x="82" y="234" width="250" height="248"/>
+                                <rect key="frame" x="82" y="234" width="250" height="248.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="6gc-3R-9JG"/>
                                     <constraint firstAttribute="width" secondItem="KDJ-P0-wS0" secondAttribute="height" multiplier="1:1" id="7ez-hb-5tv"/>
@@ -143,7 +143,6 @@
                                 <connections>
                                     <outlet property="imageOutlet" destination="mVD-lj-sbT" id="21r-tk-Ivh"/>
                                     <outlet property="labelOutlet" destination="g3I-64-mrL" id="m7q-b4-6aY"/>
-                                    <segue destination="gfc-LS-heU" kind="show" id="0mh-sg-AKo"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -297,7 +296,7 @@
                                                         <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TY5-c0-xjT">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vvd-cJ-XTb">
                                                         <rect key="frame" x="288" y="0.0" width="38" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
@@ -454,24 +453,6 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="188-kK-tVb">
-                                                <rect key="frame" x="96" y="0.0" width="86" height="24"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TY5-c0-xjT">
-                                                <rect key="frame" x="192" y="0.0" width="86" height="24"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JM1-Js-U8U">
-                                                <rect key="frame" x="288" y="0.0" width="86" height="24"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -497,9 +478,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UZj-qq-lJr"/>
                     </view>
-                    <navigationItem key="navigationItem" id="JhX-eI-oQd">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="star" catalog="system" id="2Jn-SW-Lze"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="JhX-eI-oQd"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="adressOutlet" destination="3yL-Fx-78T" id="Abx-6c-59h"/>
@@ -545,7 +524,6 @@
     <resources>
         <image name="person" catalog="system" width="64" height="60"/>
         <image name="sportscourt" catalog="system" width="64" height="42"/>
-        <image name="star" catalog="system" width="64" height="58"/>
         <image name="star.fill" catalog="system" width="64" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>

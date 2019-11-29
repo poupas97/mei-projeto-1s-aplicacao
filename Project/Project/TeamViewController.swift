@@ -26,8 +26,9 @@ class TeamViewController: UIViewController {
     @IBOutlet weak var localOutlet: UILabel!
     @IBOutlet weak var presidentOutlet: UILabel!
     
-    var team: Team = Team(id:1, name: "Alqueidao da Serra")
-    var idTeam: Int = 0;
+    var team: Team = Team(id: 10, name: "Alqueidao da Serraaaaaa")
+    var idTeamReceived: Int = 0;
+    var isFavotiteTeam: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,10 +48,23 @@ class TeamViewController: UIViewController {
         adressOutlet.text = "Nao seo"
         localOutlet.text = "Nao sei"
         presidentOutlet.text = "qq coisa serve"
+        
+        getIconFavotire();
+    }
+    
+    private func getIconFavotire() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: isFavotiteTeam ? "star.fill" : "star"), style: .plain, target: self, action: "setTeamFavorite:")
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning();
     }
-
+    
+    @IBAction func setTeamFavorite(_ sender: Any) {
+        isFavotiteTeam = !isFavotiteTeam
+        getIconFavotire();
+        
+        FavoriteTeamTableViewController().addFavoritTeam(teamReceived: team);
+    }
+    
 }
