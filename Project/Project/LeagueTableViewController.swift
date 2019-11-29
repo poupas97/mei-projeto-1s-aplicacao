@@ -28,6 +28,8 @@ class LeagueTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
 
+    // MARK: - Table view data source
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -41,6 +43,8 @@ class LeagueTableViewController: UITableViewController {
         cell.labelOutlet.text = leagues[indexPath.row].name;
         return cell;
     }
+    
+    // MARK: - Navigation
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         idToSend = leagues[indexPath.row].id;

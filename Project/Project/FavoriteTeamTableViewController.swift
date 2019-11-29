@@ -10,24 +10,32 @@
 
 import UIKit
 
-class FavoriteTeamTableViewController: UITableViewController {
+var favoriteTeams: [Team] = [];
 
-    var favoriteTeams: [Team] = [Team(id: 1, name: "alq"), Team(id: 2, name: "pdm")];
-    let identifier = "FavoriteTeamIdentifier";
-    var idToSend: Int = 0;
+class FavoriteTeamTableViewController: UITableViewController {
     
     @IBOutlet var favTeams: UITableView!
     
+    let identifier = "FavoriteTeamIdentifier";
+    var idToSend: Int = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        favoriteTeams = [Team(id: 1, name: "alq"), Team(id: 2, name: "pdm")];
         favTeams.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        favTeams.reloadData();
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
+    // MARK: - Table view data source
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -42,6 +50,18 @@ class FavoriteTeamTableViewController: UITableViewController {
         return cell;
     }
     
+    // MARK: - Actions
+    
+    public func addFavoritTeam(teamReceived: Team) {
+        favoriteTeams.append(teamReceived);
+    }
+    
+    public func removeFavoritTeam(teamReceived: Team) {
+        favoriteTeams = favoriteTeams.filter({$0 !== teamReceived});
+    }
+    
+    // MARK: - Navigation
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         idToSend = favoriteTeams[indexPath.row].id;
         performSegue(withIdentifier: "goToTeamView", sender: idToSend);
@@ -50,7 +70,8 @@ class FavoriteTeamTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let info = segue.destination as? TeamViewController;
         print(info);
-        info?.idTeam = self.idToSend;
+        info?.idTeamReceived = self.idToSend;
+        info?.isFavotiteTeam = true;
     }
 
 }

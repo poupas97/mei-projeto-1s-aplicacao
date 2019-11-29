@@ -23,16 +23,8 @@ class ViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "segueFootball" {
-            if let destination = segue.destination as? LeagueTableViewController {
-                destination.idReceived = 1
-            }
-        }
-        
-        if segue.identifier == "segueFutsal" {
-            if let destination = segue.destination as? LeagueTableViewController {
-                destination.idReceived = 2
-            }
+        if let destination = segue.destination as? LeagueTableViewController {
+            destination.idReceived = segue.identifier == "segueFootball" ? 1 : 2
         }
     }
 }
