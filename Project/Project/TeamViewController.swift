@@ -66,7 +66,7 @@ class TeamViewController: UIViewController {
     }
     
     private func getIconFavotire() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: isFavotiteTeam ? "star.fill" : "star"), style: .plain, target: self, action: "setTeamFavorite:")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: isFavotiteTeam ? "star.fill" : "star"), style: .plain, target: self, action: Selector("setTeamFavorite:"))
     }
     
 }

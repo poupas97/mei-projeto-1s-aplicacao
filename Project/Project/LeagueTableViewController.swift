@@ -20,8 +20,6 @@ class LeagueTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         leagueTableView.delegate = self
-        
-        print(idReceived)
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,7 +51,6 @@ class LeagueTableViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let info = segue.destination as? ClassificationTableViewController;
-        print(info);
         info?.idLeagueReceived = self.idToSend;
     }
 }

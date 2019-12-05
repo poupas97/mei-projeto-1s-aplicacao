@@ -11,6 +11,7 @@
 import UIKit
 
 var favoriteTeams: [Team] = [];
+let fileName = "FavoriteTeams.txt"
 
 class FavoriteTeamTableViewController: UITableViewController {
     
@@ -21,8 +22,10 @@ class FavoriteTeamTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        favoriteTeams = [Team(id: 1, name: "alq"), Team(id: 2, name: "pdm")];
+        favoriteTeams = [Team(id: 1, name: "alq"), Team(id: 2, name: "ansiao"), Team(id: 3, name: "pdm"), Team(id: 4, name: "leiria")];
         favTeams.delegate = self
+        writeToFile(array: [8]);
+        readFromFile();
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +63,56 @@ class FavoriteTeamTableViewController: UITableViewController {
         favoriteTeams = favoriteTeams.filter({$0 !== teamReceived});
     }
     
+    // MARK: - Files
+    
+    private func writeToFile (array: [Int]) {
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = dir.appendingPathComponent(fileName)
+            do {
+                //try text.write(to: fileURL, atomically: false, encoding: .utf8)
+                (array as NSArray).write(to: fileURL, atomically: true)
+            }
+            catch {
+                let alert = UIAlertController(title: "ERRO", message: "Error while adding favorite team", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            }
+        }
+    }
+    
+    private func readFromFile () -> [Int] {
+        var finalArray: [Int] = []
+        
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = dir.appendingPathComponent(fileName)
+            do {
+                let text = try String(contentsOf: fileURL, encoding: .utf8)
+                //finalArray = stringToArray(text: text);
+                print(NSArray(contentsOf: fileURL) as! [Int])
+            }
+            catch {
+                let alert = UIAlertController(title: "ERRO", message: "Error while reading favorite teams", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            }
+        }
+        
+        return finalArray;
+    }
+    
+    
+    private func stringToArray (text: String) -> [Int] {
+        return text.components(separatedBy: ";").filter({!$0.isEmpty}).map({ Int($0)! });
+    }
+    
+    private func arrayToString (array: [Int]) -> String {
+        var text = "";
+        for a in array {
+            text.append(String(a))
+        }
+        return text;
+    }
+    
     // MARK: - Navigation
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -69,7 +122,6 @@ class FavoriteTeamTableViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let info = segue.destination as? TeamViewController;
-        print(info);
         info?.idTeamReceived = self.idTeamToSend;
         info?.isFavotiteTeam = true;
     }
