@@ -63,7 +63,6 @@ class ClassificationTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let info = segue.destination as? TeamViewController;
         info?.idTeamReceived = self.idTeamToSend;
-        info?.isFavotiteTeam = true;
     }
 
 }

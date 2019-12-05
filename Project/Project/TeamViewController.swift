@@ -26,10 +26,11 @@ class TeamViewController: UIViewController {
     @IBOutlet weak var localOutlet: UILabel!
     @IBOutlet weak var presidentOutlet: UILabel!
     
-    var team: Team = Team(id: 10, name: "Alqueidao da Serraaaaaa")
+    var team: Team = Team(id: 2, name: "Alqueidao da Serraaaaaa")
     var idTeamReceived: Int = 0;
     var isFavotiteTeam: Bool = false
     
+    // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -66,6 +67,7 @@ class TeamViewController: UIViewController {
     }
     
     private func getIconFavotire() {
+        //TODO: check if tema is favorite
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: isFavotiteTeam ? "star.fill" : "star"), style: .plain, target: self, action: Selector("setTeamFavorite:"))
     }
     

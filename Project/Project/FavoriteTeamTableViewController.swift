@@ -10,6 +10,8 @@
 
 import UIKit
 
+let teams: [Team] = [Team(id: 1, name: "alq"), Team(id: 2, name: "ansiao"), Team(id: 3, name: "pdm"), Team(id: 4, name: "leiria")];
+var idTeamsArray: [Int] = [];
 var favoriteTeams: [Team] = [];
 let fileName = "FavoriteTeams.txt"
 
@@ -20,11 +22,12 @@ class FavoriteTeamTableViewController: UITableViewController {
     let identifier = "FavoriteTeamIdentifier";
     var idTeamToSend: Int = 0;
     
+    // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
-        favoriteTeams = [Team(id: 1, name: "alq"), Team(id: 2, name: "ansiao"), Team(id: 3, name: "pdm"), Team(id: 4, name: "leiria")];
         favTeams.delegate = self
-        writeToFile(array: [8]);
+        getTeams();
+        writeToFile();
         readFromFile();
     }
     
@@ -53,24 +56,41 @@ class FavoriteTeamTableViewController: UITableViewController {
         return cell;
     }
     
+    // MARK: - Methods
+    
+    private func existIdInTeams(team: Team) -> Bool {
+        return idTeamsArray.contains(team.id);
+    }
+    
+    private func getTeams () {
+        // TODO
+        favoriteTeams.append(teams[1]);
+        favoriteTeams.append(teams[2])
+    }
+    
     // MARK: - Actions
     
     public func addFavoritTeam(teamReceived: Team) {
-        favoriteTeams.append(teamReceived);
+        if (!existIdInTeams(team: teamReceived)) {
+            favoriteTeams.append(teamReceived);
+            idTeamsArray.append(teamReceived.id);
+        }
     }
     
     public func removeFavoritTeam(teamReceived: Team) {
-        favoriteTeams = favoriteTeams.filter({$0 !== teamReceived});
+        if (existIdInTeams(team: teamReceived)) {
+            favoriteTeams = favoriteTeams.filter({$0 !== teamReceived});
+            idTeamsArray.remove(at: idTeamsArray.firstIndex(of: teamReceived.id)!);
+        }
     }
     
     // MARK: - Files
     
-    private func writeToFile (array: [Int]) {
+    private func writeToFile () {
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = dir.appendingPathComponent(fileName)
             do {
-                //try text.write(to: fileURL, atomically: false, encoding: .utf8)
-                (array as NSArray).write(to: fileURL, atomically: true)
+                (idTeamsArray as NSArray).write(to: fileURL, atomically: true)
             }
             catch {
                 let alert = UIAlertController(title: "ERRO", message: "Error while adding favorite team", preferredStyle: .alert)
@@ -80,15 +100,11 @@ class FavoriteTeamTableViewController: UITableViewController {
         }
     }
     
-    private func readFromFile () -> [Int] {
-        var finalArray: [Int] = []
-        
+    private func readFromFile () {
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = dir.appendingPathComponent(fileName)
             do {
-                let text = try String(contentsOf: fileURL, encoding: .utf8)
-                //finalArray = stringToArray(text: text);
-                print(NSArray(contentsOf: fileURL) as! [Int])
+                idTeamsArray = NSArray(contentsOf: fileURL) as! [Int]
             }
             catch {
                 let alert = UIAlertController(title: "ERRO", message: "Error while reading favorite teams", preferredStyle: .alert)
@@ -96,21 +112,8 @@ class FavoriteTeamTableViewController: UITableViewController {
                 self.present(alert, animated: true)
             }
         }
-        
-        return finalArray;
-    }
-    
-    
-    private func stringToArray (text: String) -> [Int] {
-        return text.components(separatedBy: ";").filter({!$0.isEmpty}).map({ Int($0)! });
-    }
-    
-    private func arrayToString (array: [Int]) -> String {
-        var text = "";
-        for a in array {
-            text.append(String(a))
-        }
-        return text;
+        // TODO: remove
+        idTeamsArray = [1, 3];
     }
     
     // MARK: - Navigation
