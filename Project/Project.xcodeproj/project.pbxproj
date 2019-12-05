@@ -23,6 +23,8 @@
 		2CD685AE23860D45007F6417 /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD685AD23860D45007F6417 /* League.swift */; };
 		2CD685B023860D7D007F6417 /* LeagueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD685AF23860D7D007F6417 /* LeagueTableViewCell.swift */; };
 		2CD685B223860DE6007F6417 /* LeagueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD685B123860DE6007F6417 /* LeagueTableViewController.swift */; };
+		2CED6B062391A8EE009259F8 /* ClassificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CED6B052391A8EE009259F8 /* ClassificationTableViewCell.swift */; };
+		2CED6B082391ADA4009259F8 /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CED6B072391ADA4009259F8 /* Classification.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		2CD685AD23860D45007F6417 /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
 		2CD685AF23860D7D007F6417 /* LeagueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueTableViewCell.swift; sourceTree = "<group>"; };
 		2CD685B123860DE6007F6417 /* LeagueTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueTableViewController.swift; sourceTree = "<group>"; };
+		2CED6B052391A8EE009259F8 /* ClassificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationTableViewCell.swift; sourceTree = "<group>"; };
+		2CED6B072391ADA4009259F8 /* Classification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +126,8 @@
 				2C80193A237DDAF300F83B95 /* Assets.xcassets */,
 				2C801937237DDAF300F83B95 /* Main.storyboard */,
 				2C801935237DDAF300F83B95 /* ViewController.swift */,
+				2CED6B072391ADA4009259F8 /* Classification.swift */,
+				2CED6B052391A8EE009259F8 /* ClassificationTableViewCell.swift */,
 				2CC82C7E238F113900A08BDF /* ClassificationTableViewController.swift */,
 				2CD685A7238602A9007F6417 /* FavoriteTeamTableViewCell.swift */,
 				2CD685A52386026B007F6417 /* FavoriteTeamTableViewController.swift */,
@@ -291,7 +297,9 @@
 				2CD685B223860DE6007F6417 /* LeagueTableViewController.swift in Sources */,
 				2CD685A8238602A9007F6417 /* FavoriteTeamTableViewCell.swift in Sources */,
 				2C801932237DDAF300F83B95 /* AppDelegate.swift in Sources */,
+				2CED6B082391ADA4009259F8 /* Classification.swift in Sources */,
 				2CD685A62386026B007F6417 /* FavoriteTeamTableViewController.swift in Sources */,
+				2CED6B062391A8EE009259F8 /* ClassificationTableViewCell.swift in Sources */,
 				2C801934237DDAF300F83B95 /* SceneDelegate.swift in Sources */,
 				2C1B8BA42388635A00986769 /* TeamViewController.swift in Sources */,
 			);
