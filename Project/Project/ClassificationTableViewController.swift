@@ -18,6 +18,7 @@ class ClassificationTableViewController: UITableViewController {
     var idLeagueReceived: Int = 0;
     var idTeamToSend = 0;
     var position: Int = 0;
+    var weekMatch: Int = 0;
     
     @IBOutlet var classifications: UITableView!
     
@@ -27,6 +28,7 @@ class ClassificationTableViewController: UITableViewController {
         super.viewDidLoad()
         arrayClassifications = [Classification(idTeam: 1, nameTeam: "alq", points: 18), Classification(idTeam: 2, nameTeam: "pdm", points: 15)];
         position = 1;
+        weekMatch = 1;
         classifications.delegate = self
     }
     
@@ -49,6 +51,7 @@ class ClassificationTableViewController: UITableViewController {
         cell.classificationOutlet.text = String(position);
         cell.teamOutlet.text = arrayClassifications[indexPath.row].nameTeam;
         cell.pointsOutlet.text = String(arrayClassifications[indexPath.row].points);
+        cell.weekMatchOutlet.text = String(weekMatch);
         position = position + 1;
         return cell;
     }
