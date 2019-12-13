@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Result {
+class Result: Codable {
     var id: Int;
     var idHomeTeam: Int;
     var nameHomeTeam: String;

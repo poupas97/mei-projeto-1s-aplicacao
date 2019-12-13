@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import CoreLocation
 
-class LeagueTableViewController: UITableViewController {
+class LeagueTableViewController: UITableViewController, CLLocationManagerDelegate {
 
+    let locationManager: CLLocationManager = CLLocationManager();
+    let geoCoder = CLGeocoder()
+    
     @IBOutlet var leagueTableView: UITableView!
     
     var leagues: [League] = [League(id: 1, name: "honra"), League(id: 2, name: "serie a")];
@@ -19,7 +23,25 @@ class LeagueTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         leagueTableView.delegate = self
+        locationManager.delegate = self;
+        
+        locationManager.requestWhenInUseAuthorization();
+        locationManager.startUpdatingLocation()
+        locationManager.distanceFilter = 10
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations.last! as CLLocation
+        let loc = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+
+        geoCoder.reverseGeocodeLocation(loc, completionHandler: { (placemarks, _) -> Void in
+            let placemark = placemarks?.last!
+            let city = placemark?.locality
+            print(city!)
+        })
+        locationManager.stopUpdatingLocation()
     }
 
     override func didReceiveMemoryWarning() {

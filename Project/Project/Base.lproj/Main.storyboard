@@ -383,22 +383,19 @@
                                             <rect key="frame" x="0.0" y="6" width="416" height="39"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8IC-2p-v0c">
-                                                    <rect key="frame" x="0.0" y="0.0" width="127" height="39"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="132" height="39"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="127" id="XQf-pU-vDe"/>
+                                                        <constraint firstAttribute="width" constant="132" id="Ozj-4V-clj"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <state key="normal" title="Button">
                                                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     </state>
-                                                    <connections>
-                                                        <action selector="clickTeamHomeButton:" destination="xRs-SI-669" eventType="touchUpInside" id="cMe-EY-QY0"/>
-                                                    </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kM1-mX-6Gf">
-                                                    <rect key="frame" x="145" y="0.0" width="35" height="39"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IkP-wM-hWH">
+                                                    <rect key="frame" x="150" y="0.0" width="30" height="39"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="35" id="2m1-P1-zna"/>
+                                                        <constraint firstAttribute="width" constant="30" id="tLS-3z-atg"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                     <nil key="textColor"/>
@@ -413,19 +410,19 @@
                                                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IkP-wM-hWH">
-                                                    <rect key="frame" x="236" y="0.0" width="35" height="39"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kM1-mX-6Gf">
+                                                    <rect key="frame" x="236" y="0.0" width="30" height="39"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="35" id="R3T-0L-Pix"/>
+                                                        <constraint firstAttribute="width" constant="30" id="2m1-P1-zna"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DnZ-Pq-euj">
-                                                    <rect key="frame" x="289" y="0.0" width="127" height="39"/>
+                                                    <rect key="frame" x="284" y="0.0" width="132" height="39"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="127" id="JS4-EV-90v"/>
+                                                        <constraint firstAttribute="width" constant="132" id="JS4-EV-90v"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <state key="normal" title="Button">
