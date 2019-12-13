@@ -1,19 +1,19 @@
 //
-//  ClassificationTableViewCell.swift
+//  ResultTableViewCell.swift
 //  Project
 //
-//  Created by formando on 29/11/2019.
+//  Created by formando on 06/12/2019.
 //  Copyright © 2019 ipleiria. All rights reserved.
 //
 
 import UIKit
 
-class ClassificationTableViewCell: UITableViewCell {
+class ResultTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var classificationOutlet: UILabel!
-    @IBOutlet weak var pointsOutlet: UILabel!
-    @IBOutlet weak var teamOutlet: UILabel!
-    @IBOutlet weak var weekMatchOutlet: UILabel!
+    @IBOutlet weak var homeTeamOutlet: UIButton!
+    @IBOutlet weak var homeTeamGoalsOutlet: UILabel!
+    @IBOutlet weak var awayTeamGoalsOutlet: UILabel!
+    @IBOutlet weak var awayTeamOutlet: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
