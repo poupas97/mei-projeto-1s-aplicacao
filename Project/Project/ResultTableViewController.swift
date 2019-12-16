@@ -5,10 +5,12 @@
 //  Created by formando on 06/12/2019.
 //  Copyright © 2019 ipleiria. All rights reserved.
 //
-
+ 
 import UIKit
 
 class ResultTableViewController: UITableViewController {
+    
+    @IBOutlet var tableViewResults: UITableView!
     
     var results: [Result] = [
         Result(id: 1, idHomeTeam: 1, nameHomeTeam: "Alqueidao", goalsHomeTeam: 2, goalsAwayTeam: 0, nameAwayTeam: "Mira de Aire", idAwayTeam: 2),
@@ -23,6 +25,11 @@ class ResultTableViewController: UITableViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("eeeeeee")
+        tableViewResults.reloadData();
     }
 
     // MARK: - Table view data source
@@ -55,4 +62,17 @@ class ResultTableViewController: UITableViewController {
         let info = segue.destination as? ClassificationTableViewController;
         info?.idLeagueReceived = self.idToSend;
     }*/
+    
+    // MARK: - Buttons
+    
+    @IBAction func leftButton(_ sender: Any) {
+        self.viewDidAppear(true)
+        print("left")
+    }
+    
+    @IBAction func rightButton(_ sender: Any) {
+        print("right")
+    }
+    
+    
 }
