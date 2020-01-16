@@ -7,9 +7,15 @@
 //
 
 import UIKit
+import CoreLocation
 
-class LeagueTableViewController: UITableViewController {
+class LeagueTableViewController: UITableViewController, CLLocationManagerDelegate {
 
+    let locationManager: CLLocationManager = CLLocationManager();
+    let geoCoder = CLGeocoder()
+    
+    var cityFounded: String? = nil
+    
     @IBOutlet var leagueTableView: UITableView!
     
     var leagues: [League] = [League(id: 1, name: "honra"), League(id: 2, name: "serie a")];
@@ -19,11 +25,50 @@ class LeagueTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getLocation();
+        
         leagueTableView.delegate = self
+        locationManager.delegate = self;
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    // MARK: - GPS
+    
+    @IBAction func stateGPS(_ sender: Any) {
+        if(CLLocationManager.authorizationStatus() != .authorizedWhenInUse && CLLocationManager.authorizationStatus() !=  .authorizedAlways) {
+            getLocation();
+        }
+    }
+    
+    private func getLocation () {
+        // open defenictions
+        locationManager.requestAlwaysAuthorization();
+        if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() ==  .authorizedAlways) {
+            print("authorizationStatus")
+            locationManager.startUpdatingLocation();
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations.last! as CLLocation
+        print(location.coordinate.latitude)
+        print(location.coordinate.longitude)
+        let loc = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+
+        geoCoder.reverseGeocodeLocation(loc, completionHandler: { (placemarks, _) -> Void in
+            let placemark = placemarks?.last!
+            let city = placemark?.locality
+            self.cityFounded = city!
+            
+            if self.cityFounded != nil {
+                self.tableView.beginUpdates();
+            }
+        })
+        locationManager.stopUpdatingLocation()
     }
 
     // MARK: - Table view data source

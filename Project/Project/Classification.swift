@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Classification {
+class Classification: Codable {
     var idTeam: Int;
     var nameTeam: String;
     var points: Int;

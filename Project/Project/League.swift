@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class League {
+class League: Codable {
     var id: Int;
     var name: String;
     

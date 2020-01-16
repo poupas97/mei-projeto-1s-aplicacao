@@ -12,6 +12,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        Http.get();
+        Http.post();
+        Http.put();
+        Http.delete();
     }
 
     @IBAction func footballAction(_ sender: Any) {
