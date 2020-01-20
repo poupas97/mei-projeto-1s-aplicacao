@@ -8,16 +8,17 @@
 
 import UIKit
 
+
 class ViewController: UIViewController {
 
+    // MARK: - INIT
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        Http.get();
-        Http.post();
-        Http.put();
-        Http.delete();
     }
 
+    // MARK: - ACTIONS
+    
     @IBAction func footballAction(_ sender: Any) {
         performSegue(withIdentifier: "segueFootball", sender: self);
     }
@@ -26,9 +27,11 @@ class ViewController: UIViewController {
         performSegue(withIdentifier: "segueFutsal", sender: self);
     }
     
+    // MARK: - NAVIGATION
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? LeagueTableViewController {
-            destination.idReceived = segue.identifier == "segueFootball" ? 1 : 2
+            destination.modalityReceived = segue.identifier == "segueFootball" ? "futebol" : "futsal"
         }
     }
 }

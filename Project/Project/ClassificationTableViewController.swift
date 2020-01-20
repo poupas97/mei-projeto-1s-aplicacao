@@ -11,32 +11,36 @@
 
 import UIKit
 
-var arrayClassifications: [Classification] = [];
-
 class ClassificationTableViewController: UITableViewController {
 
+    // MARK: - VAR
+    
     var idLeagueReceived: Int = 0;
     var idTeamToSend = 0;
     var position: Int = 0;
     var weekMatch: Int = 0;
+    var idWeekMatch: Int = 0;
     
     @IBOutlet var classifications: UITableView!
     
+    var arrayClassifications: [Classification] = [];
     let identifier = "ClassificationIdentifier";
+    
+    // MARK: - INIT
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        arrayClassifications = [Classification(idTeam: 1, nameTeam: "alq", points: 18), Classification(idTeam: 2, nameTeam: "pdm", points: 15)];
-        position = 1;
-        weekMatch = 1;
-        classifications.delegate = self
+        self.classifications.dataSource = self
+        self.classifications.delegate = self
+        
+        getClassifications()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning();
     }
 
-    // MARK: - Table view data source
+    // MARK: - TABLE VIEW DATA SOURCE
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -48,24 +52,73 @@ class ClassificationTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as! ClassificationTableViewCell;
-        cell.classificationOutlet.text = String(position);
+        position = position + 1;
+        cell.classificationOutlet.text = String(position)+"º";
         cell.teamOutlet.text = arrayClassifications[indexPath.row].nameTeam;
         cell.pointsOutlet.text = String(arrayClassifications[indexPath.row].points);
         cell.weekMatchOutlet.text = String(weekMatch);
-        position = position + 1;
         return cell;
     }
 
-    // MARK: - Navigation
+    // MARK: - NAVIGATION
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        idTeamToSend = arrayClassifications[indexPath.row].idTeam;
+        self.idTeamToSend = arrayClassifications[indexPath.row].idTeam;
         performSegue(withIdentifier: "goToTeamView", sender: idTeamToSend);
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let info = segue.destination as? TeamViewController;
-        info?.idTeamReceived = self.idTeamToSend;
+    @IBAction func clickButtonResults(_ sender: Any) {
+        performSegue(withIdentifier: "goToResults", sender: self);
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let info = segue.destination as? TeamViewController {
+            info.idTeamReceived = self.idTeamToSend;
+        }
+        
+        if let info = segue.destination as? ResultTableViewController {
+            info.weekMatchReceived = self.idWeekMatch
+        }
+    }
+    
+    // MARK: - GET CLASSIFICATIONS
+    
+    func getClassifications() {
+        guard let url = URL(string: "http://178.62.253.177/classificacoes") else { return }
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let dataResponse = data,
+              error == nil else {
+                print(error?.localizedDescription ?? "Response Error")
+                return
+            }
+            do{
+                let jsonResponse = try JSONSerialization.jsonObject(with: dataResponse, options: [])
+                guard let decode = jsonResponse as? [[String: Any]] else { print("Decode Error"); return }
+                // print(decode)
+                
+                for item in decode {
+                    self.arrayClassifications.append(Classification(
+                        idTeam: item["equipa_id"] as! Int,
+                        nameTeam: "",
+                        games: item["jogos"] as! Int,
+                        points: item["pontos"] as! Int,
+                        victories: item["vitorias"] as! Int,
+                        defeats: item["derrotas"] as! Int,
+                        draws: item["empates"] as! Int,
+                        goalsScored: item["golos_marcardos"] as! Int,
+                        goalsConceded: item["golos_sofridos"] as! Int,
+                        differenceGoals: item["diferença_golos"] as! Int))
+                }
+                
+                DispatchQueue.main.async{
+                    self.classifications.reloadData()
+                }
+                print("Decode Done");
+            } catch let parsingError {
+                print("Error", parsingError)
+            }
+        }
+        task.resume()
+    }
 }

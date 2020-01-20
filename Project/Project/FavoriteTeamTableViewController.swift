@@ -10,29 +10,28 @@
 
 import UIKit
 
-let teams: [Team] = [Team(id: 1, name: "alq"), Team(id: 2, name: "ansiao"), Team(id: 3, name: "pdm"), Team(id: 4, name: "leiria")];
-var idTeamsArray: [Int] = [];
-var favoriteTeams: [Team] = [];
 let fileName = "FavoriteTeams.txt"
 
 class FavoriteTeamTableViewController: UITableViewController {
+    
+    // MARK: - VAR
     
     @IBOutlet var favTeams: UITableView!
     
     let identifier = "FavoriteTeamIdentifier";
     var idTeamToSend: Int = 0;
+    var favoriteTeams: [Team] = [];
+    var idTeamsArray: [Int] = [];
     
-    // MARK: - Init
+    // MARK: - INIT
     override func viewDidLoad() {
         super.viewDidLoad()
         favTeams.delegate = self
-        getTeams();
-        writeToFile();
-        readFromFile();
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        getTeams()
         favTeams.reloadData();
     }
 
@@ -40,7 +39,7 @@ class FavoriteTeamTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
 
-    // MARK: - Table view data source
+    // MARK: - TABLE VIEW DATA SOURCE
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -56,41 +55,37 @@ class FavoriteTeamTableViewController: UITableViewController {
         return cell;
     }
     
-    // MARK: - Methods
+    // MARK: - METHODS
     
-    private func existIdInTeams(team: Team) -> Bool {
+    public func existInTeams(team: Team) -> Bool {
+        readFromFile()
         return idTeamsArray.contains(team.id);
     }
     
-    private func getTeams () {
-        // TODO
-        favoriteTeams.append(teams[1]);
-        favoriteTeams.append(teams[2])
-    }
-    
-    // MARK: - Actions
-    
     public func addFavoritTeam(teamReceived: Team) {
-        if (!existIdInTeams(team: teamReceived)) {
-            favoriteTeams.append(teamReceived);
+        if (!existInTeams(team: teamReceived)) {
+            print("ADD TEAM")
             idTeamsArray.append(teamReceived.id);
+            writeToFile()
         }
     }
     
     public func removeFavoritTeam(teamReceived: Team) {
-        if (existIdInTeams(team: teamReceived)) {
-            favoriteTeams = favoriteTeams.filter({$0 !== teamReceived});
+        if (existInTeams(team: teamReceived)) {
+            print("REMOVE TEAM")
             idTeamsArray.remove(at: idTeamsArray.firstIndex(of: teamReceived.id)!);
+            writeToFile()
         }
     }
     
-    // MARK: - Files
+    // MARK: - FILES
     
     private func writeToFile () {
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = dir.appendingPathComponent(fileName)
             do {
                 (idTeamsArray as NSArray).write(to: fileURL, atomically: true)
+                print("WRITE")
             }
             catch {
                 let alert = UIAlertController(title: "ERRO", message: "Error while adding favorite team", preferredStyle: .alert)
@@ -101,10 +96,13 @@ class FavoriteTeamTableViewController: UITableViewController {
     }
     
     private func readFromFile () {
+        idTeamsArray = []
+        
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = dir.appendingPathComponent(fileName)
             do {
                 idTeamsArray = NSArray(contentsOf: fileURL) as! [Int]
+                print("READ")
             }
             catch {
                 let alert = UIAlertController(title: "ERRO", message: "Error while reading favorite teams", preferredStyle: .alert)
@@ -112,11 +110,9 @@ class FavoriteTeamTableViewController: UITableViewController {
                 self.present(alert, animated: true)
             }
         }
-        // TODO: remove
-        idTeamsArray = [1, 3];
     }
     
-    // MARK: - Navigation
+    // MARK: - NAVIGATION
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         idTeamToSend = favoriteTeams[indexPath.row].id;
@@ -126,7 +122,47 @@ class FavoriteTeamTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let info = segue.destination as? TeamViewController;
         info?.idTeamReceived = self.idTeamToSend;
-        info?.isFavotiteTeam = true;
+    }
+    	
+    // MARK: - GET TEAMS
+    
+    func getTeams() {
+        favoriteTeams = []
+        readFromFile();
+        
+        for item in idTeamsArray {
+            guard let url = URL(string: "http://178.62.253.177/equipa/"+String(item)) else { return }
+            
+            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                guard let dataResponse = data,
+                  error == nil else {
+                    print(error?.localizedDescription ?? "Response Error")
+                    return
+                }
+                do{
+                    let jsonResponse = try JSONSerialization.jsonObject(with: dataResponse, options: [])
+                    guard let decode = jsonResponse as? [[String: Any]] else { print("Decode Error"); return }
+                    // print(decode)
+                    
+                    self.favoriteTeams.append(Team(
+                        id: decode[0]["id"] as! Int,
+                        name: decode[0]["nome"] as! String,
+                        city: decode[0]["cidade"] as! String,
+                        president: decode[0]["presidente"] as! String,
+                        fundationYear: decode[0]["ano_fundacao"] as! Int,
+                        equipmentBrand: decode[0]["marca_equipamento"] as! String,
+                        idAssociation: 0))
+                    
+                    DispatchQueue.main.async{
+                        self.favTeams.reloadData()
+                    }
+                    print("Decode Done");
+                } catch let parsingError {
+                    print("Error", parsingError)
+                }
+            }
+            task.resume()
+        }
     }
 
 }

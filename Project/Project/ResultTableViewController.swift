@@ -10,17 +10,25 @@ import UIKit
 
 class ResultTableViewController: UITableViewController {
     
+    // MARK: - VAR
+    
     @IBOutlet var tableViewResults: UITableView!
     
-    var results: [Result] = [
-        Result(id: 1, idHomeTeam: 1, nameHomeTeam: "Alqueidao", goalsHomeTeam: 2, goalsAwayTeam: 0, nameAwayTeam: "Mira de Aire", idAwayTeam: 2),
-        Result(id: 1, idHomeTeam: 1, nameHomeTeam: "Alqueidao", goalsHomeTeam: 2, goalsAwayTeam: 0, nameAwayTeam: "Mira de Aire", idAwayTeam: 2),
-        Result(id: 1, idHomeTeam: 1, nameHomeTeam: "Alqueidao", goalsHomeTeam: 2, goalsAwayTeam: 0, nameAwayTeam: "Mira de Aire", idAwayTeam: 2)
-    ];
+    var idWeekMatch = 0
+    var weekMatchReceived = 0
+    
+    var results: [Result] = [];
     let identifier = "ResultIdentifier";
 
+    // MARK: - INIT
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableViewResults.dataSource = self
+        self.tableViewResults.delegate = self
+        
+        getResults(weekMatch: weekMatchReceived)
+        print(weekMatchReceived)
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,11 +36,10 @@ class ResultTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("eeeeeee")
         tableViewResults.reloadData();
     }
 
-    // MARK: - Table view data source
+    // MARK: - TABLE VIEW DATA SOURCE
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -51,7 +58,7 @@ class ResultTableViewController: UITableViewController {
         return cell;
     }
     
-    // MARK: - Navigation
+    // MARK: - NAVIGATION
     
     /*override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         idToSend = leagues[indexPath.row].id;
@@ -63,16 +70,56 @@ class ResultTableViewController: UITableViewController {
         info?.idLeagueReceived = self.idToSend;
     }*/
     
-    // MARK: - Buttons
+    // MARK: - BUTTONS
     
     @IBAction func leftButton(_ sender: Any) {
-        self.viewDidAppear(true)
-        print("left")
+        if (results[0].weekMatch - 1 <= 0) { return }
+        
+        getResults(weekMatch: results[0].weekMatch - 1)
     }
     
     @IBAction func rightButton(_ sender: Any) {
-        print("right")
+        if (results[0].weekMatch + 1 > self.weekMatchReceived) { return }
+        
+        getResults(weekMatch: results[0].weekMatch + 1)
     }
     
+    // MARK: - GET RESULTS
     
+    func getResults(weekMatch: Int) {
+        guard let url = URL(string: "http://178.62.253.177/jornadas") else { return }
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let dataResponse = data,
+              error == nil else {
+                print(error?.localizedDescription ?? "Response Error")
+                return
+            }
+            do{
+                let jsonResponse = try JSONSerialization.jsonObject(with: dataResponse, options: [])
+                guard let decode = jsonResponse as? [[String: Any]] else { print("Decode Error"); return }
+                // print(decode)
+                
+                for item in decode {
+                    self.results.append(Result(
+                        id: item["id"] as! Int,	
+                        idHomeTeam: item["id_equipa_casa"] as! Int,
+                        nameHomeTeam: "",
+                        goalsHomeTeam: Int((item["resultado_equipa_casa"] as! NSString).floatValue),
+                        idAwayTeam: item["id_equipa_fora"] as! Int,
+                        nameAwayTeam: "",
+                        goalsAwayTeam: Int((item["resultado_equipa_fora"] as! NSString).floatValue),
+                        weekMatch: 0))
+                }
+                
+                DispatchQueue.main.async{
+                    self.tableViewResults.reloadData()
+                }
+                print("Decode Done");
+            } catch let parsingError {
+                print("Error", parsingError)
+            }
+        }
+        task.resume()
+    }
 }

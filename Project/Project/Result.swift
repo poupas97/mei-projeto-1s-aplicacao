@@ -17,14 +17,20 @@ class Result: Codable {
     var goalsAwayTeam: Int;
     var nameAwayTeam: String;
     var idAwayTeam: Int;
+    var weekMatch: Int
     
-    init(id: Int, idHomeTeam: Int, nameHomeTeam: String, goalsHomeTeam: Int, goalsAwayTeam: Int, nameAwayTeam: String, idAwayTeam: Int) {
+    init(id: Int, idHomeTeam: Int, nameHomeTeam: String, goalsHomeTeam: Int, idAwayTeam: Int, nameAwayTeam: String, goalsAwayTeam: Int, weekMatch: Int) {
         self.id = id;
         self.idHomeTeam = idHomeTeam;
         self.nameHomeTeam = nameHomeTeam;
         self.goalsHomeTeam = goalsHomeTeam;
-        self.goalsAwayTeam = goalsAwayTeam;
-        self.nameAwayTeam = nameAwayTeam;
         self.idAwayTeam = idAwayTeam;
+        self.nameAwayTeam = nameAwayTeam;
+        self.goalsAwayTeam = goalsAwayTeam;
+        self.weekMatch = weekMatch
+    }
+    
+    public var getDescription: String {
+        return "id: \(id)\nidHomeTeam: \(idHomeTeam)\nnameHomeTeam: \(nameHomeTeam)\ngoalsHomeTeam: \(goalsHomeTeam)\nfidAwayTeam: \(idAwayTeam)\nnameAwayTeam: \(nameAwayTeam)\ngoalsAwayTeam: \(goalsAwayTeam)\nweekMatch: \(weekMatch)"
     }
 }
