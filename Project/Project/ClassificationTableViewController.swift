@@ -18,7 +18,6 @@ class ClassificationTableViewController: UITableViewController {
     var idLeagueReceived: Int = 0;
     var idTeamToSend = 0;
     var position: Int = 0;
-    var weekMatch: Int = 0;
     var idWeekMatch: Int = 0;
     
     @IBOutlet var classifications: UITableView!
@@ -56,7 +55,7 @@ class ClassificationTableViewController: UITableViewController {
         cell.classificationOutlet.text = String(position)+"º";
         cell.teamOutlet.text = arrayClassifications[indexPath.row].nameTeam;
         cell.pointsOutlet.text = String(arrayClassifications[indexPath.row].points);
-        cell.weekMatchOutlet.text = String(weekMatch);
+        cell.weekMatchOutlet.text = String(arrayClassifications[indexPath.row].games);
         return cell;
     }
 
@@ -77,7 +76,7 @@ class ClassificationTableViewController: UITableViewController {
         }
         
         if let info = segue.destination as? ResultTableViewController {
-            info.weekMatchReceived = self.idWeekMatch
+            info.idWeekMatchReceived = self.idWeekMatch
         }
     }
     
@@ -97,10 +96,12 @@ class ClassificationTableViewController: UITableViewController {
                 guard let decode = jsonResponse as? [[String: Any]] else { print("Decode Error"); return }
                 // print(decode)
                 
+                if (decode.isEmpty) { return }
+                
                 for item in decode {
                     self.arrayClassifications.append(Classification(
                         idTeam: item["equipa_id"] as! Int,
-                        nameTeam: "",
+                        nameTeam: item["nome"] as! String,
                         games: item["jogos"] as! Int,
                         points: item["pontos"] as! Int,
                         victories: item["vitorias"] as! Int,
@@ -109,6 +110,7 @@ class ClassificationTableViewController: UITableViewController {
                         goalsScored: item["golos_marcardos"] as! Int,
                         goalsConceded: item["golos_sofridos"] as! Int,
                         differenceGoals: item["diferença_golos"] as! Int))
+                    self.idWeekMatch = item["jornada_id"] as! Int;
                 }
                 
                 DispatchQueue.main.async{

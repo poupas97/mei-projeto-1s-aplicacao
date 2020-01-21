@@ -133,6 +133,8 @@ class LeagueTableViewController: UITableViewController, CLLocationManagerDelegat
                 guard let decode = jsonResponse as? [[String: Any]] else { print("Decode Error"); return }
                 // print(decode)
                 
+                if (decode.isEmpty) { return }
+                
                 self.association = Association(
                     id: decode[0]["id"] as! Int,
                     name: decode[0]["nome"] as! String)

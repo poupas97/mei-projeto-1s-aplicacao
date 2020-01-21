@@ -16,7 +16,7 @@ class Team: Codable {
     var president: String = "";
     var fundationYear: Int = 0;
     var equipmentBrand: String = "";
-    var idAssociation: Int = 0;
+    var association: String = "";
     var points: Int = 0;
     var matchWeek: Int = 0;
     var victories: Int = 0;
@@ -29,24 +29,24 @@ class Team: Codable {
     init() {
     }
     
-    init(id: Int, name: String, city: String, president: String, fundationYear: Int, equipmentBrand: String, idAssociation: Int) {
+    init(id: Int, name: String, city: String, president: String, fundationYear: Int, equipmentBrand: String, association: String) {
         self.id = id;
         self.name = name;
         self.city = city;
         self.president = president;
         self.fundationYear = fundationYear;
         self.equipmentBrand = equipmentBrand;
-        self.idAssociation = idAssociation;
+        self.association = association;
     }
     
-    init(id: Int, name: String, city: String, president: String, fundationYear: Int, equipmentBrand: String, idAssociation: Int, points: Int, matchWeek: Int, victories: Int, drawers: Int, defeats: Int, goalsScored: Int, goalsConceded: Int, goalsDeference: Int) {
+    init(id: Int, name: String, city: String, president: String, fundationYear: Int, equipmentBrand: String, association: String, points: Int, matchWeek: Int, victories: Int, drawers: Int, defeats: Int, goalsScored: Int, goalsConceded: Int, goalsDeference: Int) {
         self.id = id;
         self.name = name;
         self.city = city;
         self.president = president;
         self.fundationYear = fundationYear;
         self.equipmentBrand = equipmentBrand;
-        self.idAssociation = idAssociation;
+        self.association = association;
         self.points = points
         self.matchWeek = matchWeek
         self.victories = victories
@@ -58,6 +58,6 @@ class Team: Codable {
     }
     
     public var getDescription: String {
-        return "id: \(id)\nname: \(name)\ncity: \(city)\npresident: \(president)\nfundationYear: \(fundationYear)\nequipmentBrand: \(equipmentBrand)\nidAssociation: \(idAssociation)"
+        return "id: \(id)\nname: \(name)\ncity: \(city)\npresident: \(president)\nfundationYear: \(fundationYear)\nequipmentBrand: \(equipmentBrand)\nassociation: \(association)"
     }
 }

@@ -13,9 +13,10 @@ class ResultTableViewController: UITableViewController {
     // MARK: - VAR
     
     @IBOutlet var tableViewResults: UITableView!
+    @IBOutlet weak var weekMatchOutlet: UILabel!
     
-    var idWeekMatch = 0
-    var weekMatchReceived = 0
+    var weekMatch = 0
+    var idWeekMatchReceived = 0
     
     var results: [Result] = [];
     let identifier = "ResultIdentifier";
@@ -27,8 +28,7 @@ class ResultTableViewController: UITableViewController {
         self.tableViewResults.dataSource = self
         self.tableViewResults.delegate = self
         
-        getResults(weekMatch: weekMatchReceived)
-        print(weekMatchReceived)
+        getResults(idWeekMatch: idWeekMatchReceived)
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,36 +58,25 @@ class ResultTableViewController: UITableViewController {
         return cell;
     }
     
-    // MARK: - NAVIGATION
-    
-    /*override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        idToSend = leagues[indexPath.row].id;
-        performSegue(withIdentifier: "goToClassification", sender: idToSend);
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let info = segue.destination as? ClassificationTableViewController;
-        info?.idLeagueReceived = self.idToSend;
-    }*/
-    
     // MARK: - BUTTONS
     
     @IBAction func leftButton(_ sender: Any) {
-        if (results[0].weekMatch - 1 <= 0) { return }
+        if (results.isEmpty || results[0].weekMatch - 1 <= 0) { return }
         
-        getResults(weekMatch: results[0].weekMatch - 1)
+        getResults(idWeekMatch: results[0].weekMatch - 1)
     }
     
     @IBAction func rightButton(_ sender: Any) {
-        if (results[0].weekMatch + 1 > self.weekMatchReceived) { return }
+        if (results.isEmpty || results[0].weekMatch + 1 > self.weekMatch) { return }
         
-        getResults(weekMatch: results[0].weekMatch + 1)
+        getResults(idWeekMatch: results[0].weekMatch + 1)
     }
     
     // MARK: - GET RESULTS
     
-    func getResults(weekMatch: Int) {
-        guard let url = URL(string: "http://178.62.253.177/jornadas") else { return }
+    func getResults(idWeekMatch: Int) {
+        self.results = []
+        guard let url = URL(string: "http://178.62.253.177/jornadas/"+String(idWeekMatch)) else { return }
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let dataResponse = data,
@@ -100,19 +89,23 @@ class ResultTableViewController: UITableViewController {
                 guard let decode = jsonResponse as? [[String: Any]] else { print("Decode Error"); return }
                 // print(decode)
                 
+                if (decode.isEmpty) { return }
+                
                 for item in decode {
                     self.results.append(Result(
                         id: item["id"] as! Int,	
                         idHomeTeam: item["id_equipa_casa"] as! Int,
-                        nameHomeTeam: "",
+                        nameHomeTeam: item["nome_equipa_casa"] as! String,
                         goalsHomeTeam: Int((item["resultado_equipa_casa"] as! NSString).floatValue),
                         idAwayTeam: item["id_equipa_fora"] as! Int,
-                        nameAwayTeam: "",
+                        nameAwayTeam: item["nome_equipa_fora"] as! String,
                         goalsAwayTeam: Int((item["resultado_equipa_fora"] as! NSString).floatValue),
-                        weekMatch: 0))
+                        weekMatch: item["numero_jornada"] as! Int))
                 }
                 
                 DispatchQueue.main.async{
+                    self.weekMatch = decode[0]["numero_jornada"] as! Int
+                    self.weekMatchOutlet.text = "WeekMatch " + String(self.weekMatch)
                     self.tableViewResults.reloadData()
                 }
                 print("Decode Done");

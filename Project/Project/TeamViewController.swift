@@ -62,6 +62,7 @@ class TeamViewController: UIViewController {
     
     func getTeam(idTeam: Int) {
         guard let url = URL(string: "http://178.62.253.177/equipa/"+String(idTeam)) else {return}
+        print(url)
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let dataResponse = data,
@@ -82,7 +83,7 @@ class TeamViewController: UIViewController {
                     president: decode[0]["presidente"] as! String,
                     fundationYear: decode[0]["ano_fundacao"] as! Int,
                     equipmentBrand: decode[0]["marca_equipamento"] as! String,
-                    idAssociation: 0,
+                    association: decode[0]["divisao_nome"] as! String,
                     points: decode[0]["pontos"] as! Int,
                     matchWeek: decode[0]["jogos"] as! Int,
                     victories: decode[0]["vitorias"] as! Int,
@@ -104,7 +105,7 @@ class TeamViewController: UIViewController {
                     self.goalsDeferenceOutlet.text = String(self.team.goalsDeference)
                     self.foundedOutlet.text = String(self.team.fundationYear)
                     self.equipmentBrandOutlet.text = self.team.equipmentBrand
-                    self.associactionOutlet.text = String(self.team.idAssociation)
+                    self.associactionOutlet.text = self.team.association
                     self.localOutlet.text = self.team.city
                     self.presidentOutlet.text = self.team.president
                     

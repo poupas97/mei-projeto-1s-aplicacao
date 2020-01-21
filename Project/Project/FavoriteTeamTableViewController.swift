@@ -144,6 +144,8 @@ class FavoriteTeamTableViewController: UITableViewController {
                     guard let decode = jsonResponse as? [[String: Any]] else { print("Decode Error"); return }
                     // print(decode)
                     
+                    if (decode.isEmpty) { return }
+                    
                     self.favoriteTeams.append(Team(
                         id: decode[0]["id"] as! Int,
                         name: decode[0]["nome"] as! String,
@@ -151,7 +153,7 @@ class FavoriteTeamTableViewController: UITableViewController {
                         president: decode[0]["presidente"] as! String,
                         fundationYear: decode[0]["ano_fundacao"] as! Int,
                         equipmentBrand: decode[0]["marca_equipamento"] as! String,
-                        idAssociation: 0))
+                        association: decode[0]["divisao_nome"] as! String))
                     
                     DispatchQueue.main.async{
                         self.favTeams.reloadData()
