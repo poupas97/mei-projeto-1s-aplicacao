@@ -101,6 +101,7 @@ class FavoriteTeamTableViewController: UITableViewController {
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = dir.appendingPathComponent(fileName)
             do {
+                if (NSArray(contentsOf: fileURL) == nil) { return }
                 idTeamsArray = NSArray(contentsOf: fileURL) as! [Int]
                 print("READ")
             }
